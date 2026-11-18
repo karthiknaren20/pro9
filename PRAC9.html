@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RCB Cricket Zone - Practicum 9</title>
+
+<style>
+
+/* GENERAL */
+body {
+    font-family: Arial, sans-serif;
+    background: #f1f1f1;
+    color: #45484d;
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* STICKY HEADER */
+header {
+    background: white;
+    text-align: center;
+    padding: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+header h1 {
+    color: #b5122b;
+    margin: 0;
+}
+
+nav a {
+    color: #45484d;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: #b5122b;
+    text-decoration: underline;
+}
+
+/* DROPDOWN */
+.dropdown {
+    display: inline-block;
+    position: relative;
+}
+
+.dropdown button {
+    background: none;
+    color: #45484d;
+    border: none;
+    padding: 0;
+    margin: 0 10px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.dropdown button:hover {
+    background: none;
+    color: #b5122b;
+    text-decoration: underline;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 160px;
+    background: white;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    text-align: left;
+    z-index: 101;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 8px 12px;
+    margin: 0;
+}
+
+.dropdown:hover .dropdown-content,
+.dropdown:focus-within .dropdown-content {
+    display: block;
+}
+
+/* AUDIO */
+.music {
+    background: white;
+    text-align: center;
+    padding: 10px;
+}
+
+/* PRACTICUM 9: ANIMATED ANNOUNCEMENT */
+.announcement {
+    background: #10152c;
+    color: white;
+    padding: 12px 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.announcement-track {
+    display: inline-block;
+    min-width: 100%;
+    animation: slideText 14s linear infinite;
+}
+
+.announcement-track span {
+    display: inline-block;
+    padding-left: 100%;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* SLIDING TEXT KEYFRAMES */
+@keyframes slideText {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* ANNOUNCEMENT CONTROLS */
+.animation-controls {
+    background: white;
+    text-align: center;
+    padding: 10px;
+}
+
+.animation-controls button {
+    background: #b5122b;
+    color: white;
+    border: none;
+    padding: 9px 16px;
+    margin: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.animation-controls button:hover {
+    background: #801020;
+}
+
+/* HERO BANNER */
+.hero {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+    background: #10152c;
+}
+
+.banner {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0.78;
+
+    /* PRACTICUM 9: BANNER ZOOM ANIMATION */
+    animation: bannerZoom 12s ease-in-out infinite alternate;
+}
+
+@keyframes bannerZoom {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.12);
+    }
+}
+
+.hero-content {
+    position: absolute;
+    left: 7%;
+    bottom: 28px;
+    z-index: 2;
+    color: white;
+    max-width: 560px;
+    text-shadow: 0 2px 5px black;
+}
+
+.hero-content h2 {
+    font-size: clamp(28px, 4vw, 46px);
+    line-height: 1.1;
+    margin: 0 0 8px;
+}
+
+/* PRACTICUM 9: PULSING BADGE */
+.live-tag {
+    position: absolute;
+    top: 18px;
+    right: 22px;
+    z-index: 3;
+    background: #b5122b;
+    color: white;
+    padding: 7px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+
+    animation: pulseBadge 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseBadge {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(181,18,43,0);
+    }
+
+    50% {
+        transform: scale(1.12);
+        box-shadow: 0 0 15px rgba(181,18,43,0.8);
+    }
+}
+
+/* PAGE LAYOUT */
+.page-layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    width: 94%;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 210px;
+    flex-shrink: 0;
+    background: white;
+    border-left: 5px solid #b5122b;
+    border-radius: 8px;
+    padding: 15px;
+    box-sizing: border-box;
+    position: sticky;
+    top: 125px;
+}
+
+.sidebar h2 {
+    color: #b5122b;
+    margin-top: 0;
+    font-size: 20px;
+}
+
+.sidebar a {
+    display: block;
+    color: #45484d;
+    padding: 7px 0;
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    color: #b5122b;
+}
+
+.main-content {
+    min-width: 0;
+    flex: 1;
+}
+
+/* MEDIA SECTION */
+.media {
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+}
+
+.section-heading {
+    border-left: 5px solid #b5122b;
+    padding-left: 12px;
+    margin-bottom: 15px;
+}
+
+/* STATISTICS */
+.feature-strip {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 22px 0;
+}
+
+.feature {
+    flex: 1 1 150px;
+    background: white;
+    padding: 15px;
+    border-radius: 7px;
+    border-bottom: 3px solid #d5a928;
+}
+
+.feature strong {
+    display: block;
+    font-size: 22px;
+    color: #b5122b;
+}
+
+/* MEDIA BOXES */
+.box {
+    width: 48%;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 1% 18px 0;
+    padding: 12px;
+    box-sizing: border-box;
+    background: white;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+}
+
+.box h3 {
+    margin: 0 0 10px;
+}
+
+.box iframe,
+.box video {
+    width: 100%;
+    height: 250px;
+    border: 0;
+    display: block;
+    border-radius: 4px;
+}
+
+.media-tag {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    z-index: 2;
+    background: #b5122b;
+    color: white;
+    font-size: 11px;
+    padding: 4px 7px;
+    border-radius: 3px;
+}
+
+/* GALLERY */
+.gallery-section {
+    width: 100%;
+    margin: 28px auto;
+}
+
+.gallery-intro {
+    color: #666a70;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+/* PRACTICUM 9: GALLERY CARD ANIMATION */
+.gallery-card {
+    min-width: 0;
+    overflow: hidden;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+
+    transition: transform 0.35s ease,
+                box-shadow 0.35s ease;
+}
+
+/* CARD LIFT EFFECT */
+.gallery-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 22px rgba(0,0,0,0.18);
+}
+
+.gallery-open {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: #10152c;
+    overflow: hidden;
+}
+
+.gallery-open img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+
+    /* IMAGE ZOOM TRANSITION */
+    transition: transform 0.4s ease;
+}
+
+.gallery-open:hover img,
+.gallery-open:focus-visible img {
+    transform: scale(1.08);
+}
+
+.gallery-caption {
+    padding: 12px 14px;
+    margin: 0;
+    font-weight: bold;
+}
+
+/* LIGHTBOX */
+.lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(0,0,0,0.92);
+}
+
+.lightbox.open {
+    display: flex;
+}
+
+.lightbox-content {
+    max-width: 1000px;
+    width: 100%;
+    text-align: center;
+    color: white;
+}
+
+.lightbox-image {
+    display: block;
+    max-width: 100%;
+    max-height: 75vh;
+    margin: 0 auto;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+.lightbox-caption {
+    margin: 12px 0 0;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 14px;
+    right: 22px;
+    padding: 5px 12px;
+    background: #b5122b;
+    color: white;
+    font-size: 28px;
+    line-height: 1.2;
+}
+
+.gallery-open:focus-visible,
+.lightbox-close:focus-visible {
+    outline: 3px solid #d5a928;
+    outline-offset: 3px;
+}
+
+/* MATCH UPDATES */
+.race-card {
+    position: relative;
+    overflow: hidden;
+    background: white;
+    border-radius: 8px;
+    padding: 18px;
+    margin: 18px 0;
+    border-left: 5px solid #b5122b;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+}
+
+.race-card h3 {
+    margin-top: 0;
+    padding-right: 90px;
+}
+
+.race-card p {
+    margin-bottom: 0;
+}
+
+.card-status {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: #f4e5e6;
+    color: #8b202b;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 5px 8px;
+    border-radius: 4px;
+}
+
+/* MATCH SCHEDULE */
+.schedule {
+    position: relative;
+    margin: 20px 0;
+    padding: 5px 0 5px 28px;
+    border-left: 3px solid #b5122b;
+}
+
+.schedule-item {
+    position: relative;
+    background: white;
+    margin: 0 0 14px;
+    padding: 12px 15px;
+    border-radius: 6px;
+    box-shadow: 0 2px 7px rgba(0,0,0,0.06);
+}
+
+.schedule-item::before {
+    content: "";
+    position: absolute;
+    left: -37px;
+    top: 17px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #b5122b;
+    border: 3px solid #f1f1f1;
+}
+
+.schedule-item strong {
+    color: #b5122b;
+}
+
+/* REGISTRATION FORM */
+.form-section {
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto;
+    background: white;
+    padding: 18px;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.form-section h2 {
+    color: #b5122b;
+}
+
+.form-section input,
+.form-section select,
+.form-section textarea {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 15px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background: #b5122b;
+    color: white;
+    border: 0;
+    padding: 10px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background: #801020;
+}
+
+/* FOOTER */
+footer {
+    background: #10152c;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    clear: both;
+}
+
+/* TABLET RESPONSIVENESS */
+@media (max-width: 900px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .page-layout {
+        gap: 16px;
+    }
+
+    .box iframe,
+    .box video {
+        height: 220px;
+    }
+}
+
+/* SMALL TABLETS */
+@media (max-width: 800px) {
+    .page-layout {
+        display: block;
+    }
+
+    .sidebar {
+        width: 100%;
+        margin-bottom: 20px;
+        position: static;
+    }
+
+    .sidebar a {
+        display: inline-block;
+        margin-right: 12px;
+    }
+}
+
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 700px) {
+    .box {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .hero {
+        height: 220px;
+    }
+
+    nav a {
+        display: inline-block;
+        margin: 5px 8px;
+    }
+
+    .hero-content {
+        left: 5%;
+        right: 5%;
+        bottom: 20px;
+    }
+
+    .live-tag {
+        top: 12px;
+        right: 12px;
+    }
+}
+
+/* PRACTICUM 8: MEDIA QUERIES */
+@media (max-width: 600px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .gallery-section {
+        width: 92%;
+    }
+
+    .gallery-open img {
+        aspect-ratio: 16 / 10;
+    }
+
+    .lightbox {
+        padding: 12px;
+    }
+
+    .lightbox-image {
+        max-height: 65vh;
+    }
+
+    .gallery-caption {
+        padding: 10px 12px;
+    }
+
+    .box iframe,
+    .box video {
+        height: 200px;
+    }
+
+    .form-section {
+        width: 92%;
+    }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 380px) {
+    body {
+        font-size: 15px;
+    }
+
+    .hero-content h2 {
+        font-size: 26px;
+    }
+
+    .live-tag {
+        font-size: 10px;
+        padding: 5px 7px;
+    }
+
+    .gallery-grid {
+        gap: 10px;
+    }
+}
+
+/* PRACTICUM 9: ACCESSIBILITY */
+@media (prefers-reduced-motion: reduce) {
+    .announcement-track,
+    .banner,
+    .live-tag {
+        animation: none;
+    }
+
+    .gallery-card,
+    .gallery-open img {
+        transition: none;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <h1>ROYAL CHALLENGERS BENGALURU</h1>
+    <p>PLAY BOLD. PLAY ROYAL. PLAY FOR VICTORY.</p>
+
+    <nav>
+        <a href="#media">Media</a>
+        <a href="#gallery">Gallery</a>
+
+        <div class="dropdown">
+            <button type="button">Cricket Updates ▼</button>
+
+            <div class="dropdown-content">
+                <a href="#race-info">Match Updates</a>
+                <a href="#application">Join Us</a>
+                <a href="#media">Media Elements</a>
+                <a href="#gallery">Image Gallery</a>
+                <a href="#schedule">Match Schedule</a>
+            </div>
+        </div>
+
+        <a href="#application">Register</a>
+    </nav>
+</header>
+
+<!-- AUDIO -->
+<div class="music">
+    <p>Play Cricket Music:</p>
+
+    <audio controls>
+        <source src="audio.mpeg" type="audio/mpeg">
+        Your browser does not support audio.
+    </audio>
+</div>
+
+<!-- PRACTICUM 9: ANIMATED ANNOUNCEMENT -->
+<div class="announcement">
+
+    <div class="announcement-track" id="announcement-track">
+        <span>
+            WELCOME TO RCB CRICKET ZONE!
+            &nbsp;&nbsp;&nbsp; PLAY BOLD!
+            &nbsp;&nbsp;&nbsp; SUPPORT ROYAL CHALLENGERS BENGALURU!
+            &nbsp;&nbsp;&nbsp; ONE TEAM. ONE DREAM!
+        </span>
+    </div>
+
+</div>
+
+<!-- ANIMATION CONTROLS -->
+<div class="animation-controls">
+
+    <button type="button" id="pause-btn">
+        Pause Animation
+    </button>
+
+    <button type="button" id="play-btn">
+        Play Animation
+    </button>
+
+    <button type="button" id="restart-btn">
+        Restart Animation
+    </button>
+
+</div>
+
+<!-- HERO BANNER -->
+<section class="hero">
+
+    <img class="banner"
+         src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=1600"
+         alt="Cricket stadium">
+
+    <span class="live-tag">CHAMPIONS</span>
+
+    <div class="hero-content">
+        <h2>PLAY BOLD.<br>WIN BIG.</h2>
+        <p>One Team. One Dream. One Royal Family.</p>
+    </div>
+
+</section>
+
+<!-- MAIN PAGE LAYOUT -->
+<div class="page-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <h2>RCB Cricket Hub</h2>
+
+        <p>
+            Welcome to the Royal Challengers Bengaluru Cricket Zone!
+        </p>
+
+        <a href="#media">Media Elements</a>
+        <a href="#gallery">Image Gallery</a>
+        <a href="#race-info">Match Updates</a>
+        <a href="#schedule">Match Schedule</a>
+        <a href="#application">Join the Team</a>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- MEDIA SECTION -->
+        <section class="media" id="media">
+
+            <h2 class="section-heading">Inside Cricket Zone</h2>
+
+            <!-- STATISTICS -->
+            <div class="feature-strip">
+
+                <div class="feature">
+                    <strong>11</strong>
+                    <span>Players per Team</span>
+                </div>
+
+                <div class="feature">
+                    <strong>20</strong>
+                    <span>Overs in T20 Cricket</span>
+                </div>
+
+                <div class="feature">
+                    <strong>6</strong>
+                    <span>Runs for a Six</span>
+                </div>
+
+            </div>
+
+            <!-- PDF -->
+            <div class="box">
+
+                <span class="media-tag">GUIDE</span>
+
+                <h3>Cricket Rules</h3>
+
+                <iframe src="Cricket_Basics.pdf"
+                        title="Cricket Rules PDF">
+                </iframe>
+
+            </div>
+
+            <!-- YOUTUBE VIDEO -->
+            <div class="box">
+
+                <span class="media-tag">VIDEO</span>
+
+                <h3>Cricket Highlights</h3>
+
+                <iframe
+                    src="https://www.youtube.com/embed/pq7t0PLBfQY"
+                    title="Cricket Highlights Video"
+                    allowfullscreen>
+                </iframe>
+
+            </div>
+
+            <!-- LOCAL VIDEO -->
+            <div class="box">
+
+                <span class="media-tag">MATCH</span>
+
+                <h3>Cricket Match Video</h3>
+
+                <video controls>
+                    <source src="V.mp4" type="video/mp4">
+                    Your browser does not support video.
+                </video>
+
+            </div>
+
+            <!-- GOOGLE MAPS -->
+            <div class="box">
+
+                <span class="media-tag">LOCATION</span>
+
+                <h3>M. Chinnaswamy Stadium</h3>
+
+                <iframe
+                    src="https://www.google.com/maps?q=M.+Chinnaswamy+Stadium+Bengaluru&output=embed"
+                    title="Chinnaswamy Stadium Location"
+                    loading="lazy">
+                </iframe>
+
+            </div>
+
+        </section>
+
+        <!-- IMAGE GALLERY -->
+        <section class="gallery-section" id="gallery">
+
+            <h2 class="section-heading">
+                RCB Champions Gallery
+            </h2>
+
+            <p class="gallery-intro">
+                Explore the exciting moments of Royal Challengers Bengaluru.
+                Select any image to view it larger.
+            </p>
+
+            <div class="gallery-grid">
+
+                <article class="gallery-card">
+
+                    <button class="gallery-open" type="button"
+                        data-full="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=1200"
+                        data-caption="Cricket Stadium">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=600"
+                            alt="Cricket stadium"
+                            loading="lazy"
+                            width="600"
+                            height="450">
+
+                    </button>
+
+                    <p class="gallery-caption">
+                        Cricket Stadium
+                    </p>
+
+                </article>
+
+                <article class="gallery-card">
+
+                    <button class="gallery-open" type="button"
+                        data-full="https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=1200"
+                        data-caption="Cricket Ground">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=600"
+                            alt="Cricket ground"
+                            loading="lazy"
+                            width="600"
+                            height="450">
+
+                    </button>
+
+                    <p class="gallery-caption">
+                        Cricket Ground
+                    </p>
+
+                </article>
+
+                <article class="gallery-card">
+
+                    <button class="gallery-open" type="button"
+                        data-full="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=1200"
+                        data-caption="Cricket Match">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=600"
+                            alt="Cricket match"
+                            loading="lazy"
+                            width="600"
+                            height="450">
+
+                    </button>
+
+                    <p class="gallery-caption">
+                        Cricket Match
+                    </p>
+
+                </article>
+
+                <article class="gallery-card">
+
+                    <button class="gallery-open" type="button"
+                        data-full="https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=1200"
+                        data-caption="Cricket Action">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=600"
+                            alt="Cricket action"
+                            loading="lazy"
+                            width="600"
+                            height="450">
+
+                    </button>
+
+                    <p class="gallery-caption">
+                        Cricket Action
+                    </p>
+
+                </article>
+
+                <article class="gallery-card">
+
+                    <button class="gallery-open" type="button"
+                        data-full="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=1200"
+                        data-caption="Stadium Moments">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=600"
+                            alt="Stadium moments"
+                            loading="lazy"
+                            width="600"
+                            height="450">
+
+                    </button>
+
+                    <p class="gallery-caption">
+                        Stadium Moments
+                    </p>
+
+                </article>
+
+                <article class="gallery-card">
+
+                    <button class="gallery-open" type="button"
+                        data-full="https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=1200"
+                        data-caption="Cricket Celebration">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=600"
+                            alt="Cricket celebration"
+                            loading="lazy"
+                            width="600"
+                            height="450">
+
+                    </button>
+
+                    <p class="gallery-caption">
+                        Cricket Celebration
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+        <!-- LIGHTBOX -->
+        <div class="lightbox"
+             id="lightbox"
+             role="dialog"
+             aria-modal="true"
+             aria-label="Expanded gallery image"
+             aria-hidden="true">
+
+            <button class="lightbox-close"
+                    id="lightbox-close"
+                    type="button"
+                    aria-label="Close image viewer">
+
+                &times;
+
+            </button>
+
+            <div class="lightbox-content">
+
+                <img class="lightbox-image"
+                     id="lightbox-image"
+                     src=""
+                     alt="">
+
+                <p class="lightbox-caption"
+                   id="lightbox-caption">
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- MATCH UPDATES -->
+        <section id="race-info">
+
+            <h2 class="section-heading">
+                Cricket Match Updates
+            </h2>
+
+            <article class="race-card">
+
+                <span class="card-status">CHAMPIONS</span>
+
+                <h3>Royal Challengers Bengaluru</h3>
+
+                <p>
+                    Celebrate the Royal Challengers Bengaluru and their
+                    exciting journey in the world of cricket.
+                    One team, one dream and a passionate fanbase.
+                </p>
+
+            </article>
+
+            <article class="race-card">
+
+                <span class="card-status">TEAM NEWS</span>
+
+                <h3>Team Preparation</h3>
+
+                <p>
+                    Players prepare for important matches through batting
+                    practice, bowling sessions and fielding drills.
+                </p>
+
+            </article>
+
+            <article class="race-card">
+
+                <span class="card-status">UPDATES</span>
+
+                <h3>Player Performance</h3>
+
+                <p>
+                    Follow exciting centuries, wickets, sixes,
+                    outstanding catches and match-winning performances.
+                </p>
+
+            </article>
+
+            <!-- MATCH SCHEDULE -->
+            <h2 class="section-heading" id="schedule">
+                Cricket Match Schedule
+            </h2>
+
+            <div class="schedule">
+
+                <div class="schedule-item">
+                    <strong>09:00 AM — Practice Session</strong>
+                    <p>Players prepare for the upcoming match.</p>
+                </div>
+
+                <div class="schedule-item">
+                    <strong>09:30 AM — Toss</strong>
+                    <p>Team captains participate in the toss.</p>
+                </div>
+
+                <div class="schedule-item">
+                    <strong>10:00 AM — First Innings</strong>
+                    <p>The first team starts batting.</p>
+                </div>
+
+                <div class="schedule-item">
+                    <strong>01:30 PM — Second Innings</strong>
+                    <p>The second team starts chasing the target.</p>
+                </div>
+
+                <div class="schedule-item">
+                    <strong>04:30 PM — Match Result</strong>
+                    <p>The winning team celebrates its victory.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- REGISTRATION FORM -->
+        <section class="form-section" id="application">
+
+            <h2>Player Registration Form</h2>
+
+            <form action="#" method="post">
+
+                <label for="full-name">Full Name</label>
+
+                <input
+                    id="full-name"
+                    name="full-name"
+                    type="text"
+                    placeholder="Enter your name"
+                    required>
+
+                <label for="email">Email</label>
+
+                <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="Enter your email"
+                    required>
+
+                <label for="role">Player Role</label>
+
+                <select id="role" name="role">
+                    <option>Batsman</option>
+                    <option>Bowler</option>
+                    <option>All-Rounder</option>
+                    <option>Wicket Keeper</option>
+                    <option>Captain</option>
+                </select>
+
+                <label for="reason">
+                    Why do you want to join Cricket Zone?
+                </label>
+
+                <textarea
+                    id="reason"
+                    name="reason"
+                    rows="4"
+                    placeholder="Enter your reason">
+                </textarea>
+
+                <button type="submit">
+                    Register Now
+                </button>
+
+            </form>
+
+        </section>
+
+    </main>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+
+    <p>&copy; 2026 RCB Cricket Zone | All Rights Reserved</p>
+
+    <p>Play Bold. Play Royal. Forever RCB!</p>
+
+</footer>
+
+<!-- JAVASCRIPT -->
+<script>
+
+/* PRACTICUM 9: ANIMATION CONTROLS */
+
+const announcement =
+    document.getElementById("announcement-track");
+
+const pauseButton =
+    document.getElementById("pause-btn");
+
+const playButton =
+    document.getElementById("play-btn");
+
+const restartButton =
+    document.getElementById("restart-btn");
+
+/* PAUSE ANIMATION */
+pauseButton.addEventListener("click", function() {
+
+    announcement.style.animationPlayState = "paused";
+
+});
+
+/* PLAY ANIMATION */
+playButton.addEventListener("click", function() {
+
+    announcement.style.animationPlayState = "running";
+
+});
+
+/* RESTART ANIMATION */
+restartButton.addEventListener("click", function() {
+
+    announcement.style.animation = "none";
+
+    void announcement.offsetWidth;
+
+    announcement.style.animation = "slideText 14s linear infinite";
+
+});
+
+/* IMAGE LIGHTBOX */
+
+const galleryButtons =
+    document.querySelectorAll(".gallery-open");
+
+const lightbox =
+    document.getElementById("lightbox");
+
+const lightboxImage =
+    document.getElementById("lightbox-image");
+
+const lightboxCaption =
+    document.getElementById("lightbox-caption");
+
+const closeLightbox =
+    document.getElementById("lightbox-close");
+
+let previousFocus = null;
+
+/* OPEN LIGHTBOX */
+function openLightbox(button) {
+
+    previousFocus = button;
+
+    lightboxImage.src = button.dataset.full;
+
+    lightboxImage.alt =
+        button.querySelector("img").alt;
+
+    lightboxCaption.textContent =
+        button.dataset.caption;
+
+    lightbox.classList.add("open");
+
+    lightbox.setAttribute("aria-hidden", "false");
+
+    closeLightbox.focus();
+
+}
+
+/* CLOSE LIGHTBOX */
+function hideLightbox() {
+
+    lightbox.classList.remove("open");
+
+    lightbox.setAttribute("aria-hidden", "true");
+
+    lightboxImage.src = "";
+
+    if (previousFocus) {
+        previousFocus.focus();
+    }
+
+}
+
+/* GALLERY CLICK EVENT */
+galleryButtons.forEach(function(button) {
+
+    button.addEventListener("click", function() {
+
+        openLightbox(button);
+
+    });
+
+});
+
+/* CLOSE BUTTON */
+closeLightbox.addEventListener("click", hideLightbox);
+
+/* CLICK OUTSIDE TO CLOSE */
+lightbox.addEventListener("click", function(event) {
+
+    if (event.target === lightbox) {
+
+        hideLightbox();
+
+    }
+
+});
+
+/* ESCAPE KEY TO CLOSE */
+document.addEventListener("keydown", function(event) {
+
+    if (
+        event.key === "Escape" &&
+        lightbox.classList.contains("open")
+    ) {
+
+        hideLightbox();
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
